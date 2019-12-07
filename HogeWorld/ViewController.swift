@@ -25,11 +25,20 @@ class ViewController: UIViewController {
     @IBAction func selectButtonTapped(_ sender: UIButton) {
         print("Gil select")
         var i = 0
+        var str = ""
+        if members.count == 0 {
+            informationLabel.text = "no member from select feature"
+            return
+        }
         for member in members{
             print(i,member.name)
             print(i,member.age)
             i+=1
+            str += "name: " + member.name + "      " + "age: "
+            str += member.age?.description ?? ""
+            str += "\r"
         }
+        informationLabel.text = str
         
     }
     
@@ -44,16 +53,23 @@ class ViewController: UIViewController {
         print(member.age)
         members.append(member)
         informationLabel.text = member.name + " is added"
+        
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         print("Gil delete")
-        informationLabel.text = (informationLabel.text ?? "")+"delete button tapped\r"
+        if members.count != 0{
+            informationLabel.text = (informationLabel.text ?? "")+"delete button tapped\r"
+            informationLabel.text = members[members.count-1].name + " is deleted"
+            members.remove(at: members.count-1)
+        }else{
+            
+            informationLabel.text = "no member from delete feature"
+            return
+            
+        }
         
-        informationLabel.text = members[members.count-1].name + " is deleted"
-        members.remove(at: members.count-1)
         
-
     }
     func hideKeyboard(){
         nameTextField.resignFirstResponder()
