@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
     
     @IBAction func selectButtonTapped(_ sender: UIButton) {
@@ -31,14 +32,14 @@ class ViewController: UIViewController {
             return
         }
         for member in members{
+            i += 1
             str += i.description + ". "
             str += "name: " + member.name + "      " + "age: "
             str += member.age?.description ?? ""
             str += "\r"
-            i+=1
+            
         }
         informationLabel.text = str
-        
         
     }
     
@@ -47,7 +48,9 @@ class ViewController: UIViewController {
         guard let name = nameTextField.text else { return }
         guard let age = Int(ageTextField2.text ?? "0") else { return }
         
-        informationLabel.text = (informationLabel.text ?? "")+"create button tapped\r"
+        //informationLabel.text = (informationLabel.text ?? "")+"create button tapped\r"
+        
+        //객체 생성하는 법
         let member: Member = Member(name: name, age: age)
         print(member.name)
         print(member.age)
@@ -55,8 +58,14 @@ class ViewController: UIViewController {
         informationLabel.text = member.name + " is added"
         hideKeyboard()
         
+        let seconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            // Put your code which should be executed with a delay here
+            self.clearInfo()
+        }
+        
     }
-    
+   
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         print("Gil delete")
         if members.count != 0{
@@ -70,17 +79,16 @@ class ViewController: UIViewController {
             
         }
         
-        
     }
-    
-    
     
     func hideKeyboard(){
         nameTextField.resignFirstResponder()
         ageTextField2.resignFirstResponder()
     }
     
-   
+    @objc func clearInfo(){
+           informationLabel.text = "";
+       }
     
 }
 
@@ -94,6 +102,3 @@ class Member {
     }
     
 }
-
-
-
