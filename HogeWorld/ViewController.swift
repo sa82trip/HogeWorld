@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     
     @IBOutlet weak var informationLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
@@ -21,38 +21,39 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
     @IBAction func selectButtonTapped(_ sender: UIButton) {
-        print("Gil select")
         var i = 0
         var str = ""
+        
         if members.count == 0 {
             informationLabel.text = "no member from select feature"
             return
         }
         for member in members{
-            print(i,member.name)
-            print(i,member.age)
-            i+=1
+            str += i.description + ". "
             str += "name: " + member.name + "      " + "age: "
             str += member.age?.description ?? ""
             str += "\r"
+            i+=1
         }
         informationLabel.text = str
+        
         
     }
     
     @IBAction func createButtonTapped(_ sender: UIButton) {
+        //name에 뭔가가 들어오지 않았다면 리턴 하는거
         guard let name = nameTextField.text else { return }
         guard let age = Int(ageTextField2.text ?? "0") else { return }
         
-        print("Gil create")
         informationLabel.text = (informationLabel.text ?? "")+"create button tapped\r"
         let member: Member = Member(name: name, age: age)
         print(member.name)
         print(member.age)
         members.append(member)
         informationLabel.text = member.name + " is added"
+        hideKeyboard()
         
     }
     
@@ -71,11 +72,16 @@ class ViewController: UIViewController {
         
         
     }
+    
+    
+    
     func hideKeyboard(){
         nameTextField.resignFirstResponder()
         ageTextField2.resignFirstResponder()
     }
-
+    
+   
+    
 }
 
 class Member {
