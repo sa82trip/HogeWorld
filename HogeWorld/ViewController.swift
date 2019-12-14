@@ -84,14 +84,6 @@ class ViewController: UIViewController {
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         print("Gil delete")
         
-        //        let alertController = UIAlertController(title: "Remove Member", message: "really want to?", preferredStyle: .alert)
-        //        let removeAction = UIAlertAction(title: "delete", style: .destructive, handler: { _ in
-        //
-        //            self.informationLabel.text = "removed Member\r " + member.description(com: {print(#function)})
-        //            }
-        //
-        //        })
-        
         let alertController = UIAlertController(title: "Remove Member", message: "really?", preferredStyle: .alert)
         let removeConfirm = UIAlertAction(title: "delete", style: .destructive, handler: { _ in
             self.informationLabel.text = "deleted"
