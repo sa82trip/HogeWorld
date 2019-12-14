@@ -63,8 +63,8 @@ class ViewController: UIViewController {
             // Put your code which should be executed with a delay here
             self.clearInfo()
         }
-        
     }
+        
    
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         print("Gil delete")

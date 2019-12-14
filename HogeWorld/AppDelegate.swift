@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+    class AppDelegate: UIResponder, UIApplicationDelegate {
     //이거 넣어줘야 ios11로 바꿨을 때 된다
     //그리고 scene delegate지워야함
     //info.plist가서 scene manifest지워라
