@@ -17,6 +17,12 @@ class ViewController: UIViewController {
     
     var members:[Member] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        nameTextField.text = UserDefaults.standard.string(forKey: "Name")
+        ageTextField2.text = String(UserDefaults.standard.integer(forKey: "Age"))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -53,31 +59,99 @@ class ViewController: UIViewController {
         //객체 생성하는 법
         let member: Member = Member(name: name, age: age)
         print(member.name)
-        print(member.age)
+        print(member.age ?? 0)
         members.append(member)
-        informationLabel.text = member.name + " is added"
+        
+        //informationLabel.text = member.name + " is added"
+        //informationLabel.text = member.description(parameter: classForCoder.description())
+        member.description(com: {print(#function)})
+        
         hideKeyboard()
         
-        let seconds = 2.0
+        let seconds = 3.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Put your code which should be executed with a delay here
             self.clearInfo()
         }
-    }
+        UserDefaults.standard.set(name, forKey: "Name")
+        UserDefaults.standard.set(age, forKey: "Age")
+        UserDefaults.standard.synchronize()
         
-   
+        
+    }
+    
+    
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         print("Gil delete")
-        if members.count != 0{
-            informationLabel.text = (informationLabel.text ?? "")+"delete button tapped\r"
-            informationLabel.text = members[members.count-1].name + " is deleted"
-            members.remove(at: members.count-1)
-        }else{
+        
+        //        let alertController = UIAlertController(title: "Remove Member", message: "really want to?", preferredStyle: .alert)
+        //        let removeAction = UIAlertAction(title: "delete", style: .destructive, handler: { _ in
+        //
+        //            self.informationLabel.text = "removed Member\r " + member.description(com: {print(#function)})
+        //            }
+        //
+        //        })
+        
+        let alertController = UIAlertController(title: "Remove Member", message: "really?", preferredStyle: .alert)
+        let removeConfirm = UIAlertAction(title: "delete", style: .destructive, handler: { _ in
+            self.informationLabel.text = "deleted"
             
-            informationLabel.text = "no member from delete feature"
-            return
+            if self.members.count != 0{
+                self.informationLabel.text = (self.informationLabel.text ?? "")+"delete button tapped\r"
+                self.informationLabel.text = self.members[self.members.count-1].name + " is deleted"
+                self.members.remove(at: self.members.count-1)
+            }else{
+                
+                self.informationLabel.text = "no member from delete feature"
+                return
+            }
+        })
+        let cancelIt = UIAlertAction(title: "cancel", style: .cancel, handler: { (action)->Void in
+            print("cancel")
+        })
+        alertController.addAction(removeConfirm)
+        alertController.addAction(cancelIt)
+        self.present(alertController, animated: true, completion: nil)
+        //        if members.count != 0{
+        //            informationLabel.text = (informationLabel.text ?? "")+"delete button tapped\r"
+        //            informationLabel.text = members[members.count-1].name + " is deleted"
+        //            members.remove(at: members.count-1)
+        //        }else{
+        //
+        //            informationLabel.text = "no member from delete feature"
+        //            return
+        //        }
+        
+        
+    }
+    
+    //마지막으로 현재 있는 값을 저장하는 기능
+    @IBAction func saveToDefaults(_ sender: UIButton) {
+        //UserDefaults.standard.set(members, forKey: "members")
+        var memberName: [String] = []
+        var memberAge: [Int] = []
+        
+        for i in 0..<members.count{
+            memberName.append(members[i].name)
+            memberAge.append(members[i].age ?? 0)
             
         }
+        UserDefaults.standard.set(memberName, forKey: "Members.Name")
+        UserDefaults.standard.set(memberAge, forKey: "Members.Age")
+        UserDefaults.standard.synchronize()
+        
+    }
+    
+    //저장했던 값을 members에 다시 load하는 기능
+    @IBAction func loadDefaultValue(_ sender: Any) {
+        let names = UserDefaults.standard.array(forKey: "Members.Name") as? [String] ?? []
+        let ages = UserDefaults.standard.array(forKey: "Members.Age") as? [Int] ?? []
+        members = []
+        for i in 0..<names.count{
+            let member = Member(name: names[i], age: ages[i])
+            members.append(member)
+        }
+        //members = UserDefaults.standard.array(forKey: "members") as! [Member]
         
     }
     
@@ -87,8 +161,8 @@ class ViewController: UIViewController {
     }
     
     @objc func clearInfo(){
-           informationLabel.text = "";
-       }
+        informationLabel.text = "";
+    }
     
 }
 
@@ -101,4 +175,13 @@ class Member {
         self.age = age
     }
     
+    //    func description (parameter: String)-> String {
+    //        print(parameter)
+    //        return "\(name),\(age ?? 0)"
+    //    }
+    
+    func description (com: ()->Void)->String{
+        com()
+        return "\(name), \(age)"
+    }
 }
