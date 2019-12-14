@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         
         //informationLabel.text = member.name + " is added"
         //informationLabel.text = member.description(parameter: classForCoder.description())
-        member.description(com: {print(#function)})
+        member.description(completion: {print(#function)})
         
         hideKeyboard()
         
@@ -84,26 +84,31 @@ class ViewController: UIViewController {
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         print("Gil delete")
         
-        let alertController = UIAlertController(title: "Remove Member", message: "really?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Remove Member", message: "delete:: \(self.members.last?.name)??", preferredStyle: .alert)
         let removeConfirm = UIAlertAction(title: "delete", style: .destructive, handler: { _ in
             self.informationLabel.text = "deleted"
-            
             if self.members.count != 0{
                 self.informationLabel.text = (self.informationLabel.text ?? "")+"delete button tapped\r"
                 self.informationLabel.text = self.members[self.members.count-1].name + " is deleted"
-                self.members.remove(at: self.members.count-1)
+                //print("기본  \(self.members.remove(at: self.members.count-1))")
+                //print("removeLast::\(self.members.removeLast())")
+                let member = self.members.removeLast()
+                self.informationLabel.text = "removed Member\r " +
+                    member.description(completion: {print(#function)})
             }else{
                 
                 self.informationLabel.text = "no member from delete feature"
                 return
             }
+            
         })
+        
         let cancelIt = UIAlertAction(title: "cancel", style: .cancel, handler: { (action)->Void in
             print("cancel")
         })
         alertController.addAction(removeConfirm)
         alertController.addAction(cancelIt)
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
         //        if members.count != 0{
         //            informationLabel.text = (informationLabel.text ?? "")+"delete button tapped\r"
         //            informationLabel.text = members[members.count-1].name + " is deleted"
@@ -172,8 +177,8 @@ class Member {
     //        return "\(name),\(age ?? 0)"
     //    }
     
-    func description (com: ()->Void)->String{
-        com()
+    func description (completion: ()->Void)->String{
+        completion()
         return "\(name), \(age)"
     }
 }
