@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F0B5B1D23AE0ED20095C328 /* MyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0B5B1C23AE0ED20095C328 /* MyTableViewController.swift */; };
 		6F48E84923A4A7E0000278D1 /* modalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F48E84823A4A7E0000278D1 /* modalViewController.swift */; };
 		6FBD9066239B8E5D0045713A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBD9065239B8E5D0045713A /* AppDelegate.swift */; };
 		6FBD906A239B8E5D0045713A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBD9069239B8E5D0045713A /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F0B5B1C23AE0ED20095C328 /* MyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewController.swift; sourceTree = "<group>"; };
 		6F48E84823A4A7E0000278D1 /* modalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modalViewController.swift; sourceTree = "<group>"; };
 		6FBD9062239B8E5D0045713A /* HogeWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HogeWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBD9065239B8E5D0045713A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				6FBD9065239B8E5D0045713A /* AppDelegate.swift */,
 				6FBD9069239B8E5D0045713A /* ViewController.swift */,
 				6FBD906B239B8E5D0045713A /* Main.storyboard */,
+				6F0B5B1C23AE0ED20095C328 /* MyTableViewController.swift */,
 				6FBD906E239B8E5F0045713A /* Assets.xcassets */,
 				6FBD9070239B8E5F0045713A /* LaunchScreen.storyboard */,
 				6FBD9073239B8E5F0045713A /* Info.plist */,
@@ -141,6 +144,7 @@
 				6F48E84923A4A7E0000278D1 /* modalViewController.swift in Sources */,
 				6FBD906A239B8E5D0045713A /* ViewController.swift in Sources */,
 				6FBD9066239B8E5D0045713A /* AppDelegate.swift in Sources */,
+				6F0B5B1D23AE0ED20095C328 /* MyTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
